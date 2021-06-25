@@ -1,32 +1,29 @@
 package xmlutil;
 
-import java.security.Key;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.Iterator;
-
 import javax.xml.crypto.AlgorithmMethod;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.KeySelectorException;
 import javax.xml.crypto.KeySelectorResult;
 import javax.xml.crypto.XMLCryptoContext;
 import javax.xml.crypto.XMLStructure;
-import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.X509Data;
 
 public class X509KeySelector extends KeySelector {
 
-	public KeySelectorResult select(
-	  KeyInfo          keyInfo,
+  public KeySelectorResult select(
+    KeyInfo          keyInfo,
     Purpose          purpose,
     AlgorithmMethod  method,
-		XMLCryptoContext context) throws KeySelectorException
+    XMLCryptoContext context) throws KeySelectorException
   {
 
     //Find <X509Data> inside <KeyInfo>
-		Iterator keyInfoIterator = keyInfo.getContent().iterator();
-		while (keyInfoIterator.hasNext()) {
+    Iterator keyInfoIterator = keyInfo.getContent().iterator();
+    while (keyInfoIterator.hasNext()) {
       XMLStructure info = (XMLStructure) keyInfoIterator.next();
       if (info instanceof X509Data) {
         //Find <X509Certificate> inside <X509Data>
